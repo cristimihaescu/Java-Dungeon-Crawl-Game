@@ -35,9 +35,9 @@ public class Main extends Application {
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
-        ui.add(new Label("Items: "),0,1);
+        ui.add(new Label("Items: "), 0, 1);
         ui.add(healthLabel, 1, 0);
-        ui.add(keyLabel,0,2);
+        ui.add(keyLabel, 0, 2);
 
         BorderPane borderPane = new BorderPane();
 
@@ -56,19 +56,23 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
+                map.getSkeleton().forEach((n) -> map.getSkeleton().move(0, -1));
                 map.getPlayer().move(0, -1);
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
+                map.getSkeleton().move(0, 1);
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
+                map.getSkeleton().move(-1, 0);
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().move(1, 0);
+                map.getSkeleton().move(1, 0);
                 refresh();
                 break;
         }
@@ -88,7 +92,7 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-        keyLabel.setText(""+ map.getPlayer().getKey());
+        keyLabel.setText("" + map.getPlayer().getKey());
 
     }
 }

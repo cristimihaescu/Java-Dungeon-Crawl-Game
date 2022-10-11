@@ -6,12 +6,14 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 
+import java.util.List;
 import java.util.Objects;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
     private int key = 0;
+    private List<Skeleton> skeletons;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -32,10 +34,9 @@ public abstract class Actor implements Drawable {
             cell.setActor(null);
             nextCell.setActor(this);
             cell=nextCell;
-//            CellType.KEY=CellType.FLOOR;
             key++;
-
         }
+//        if(nextCell.getType() == Cel)
     }
 
     public int getHealth() {
