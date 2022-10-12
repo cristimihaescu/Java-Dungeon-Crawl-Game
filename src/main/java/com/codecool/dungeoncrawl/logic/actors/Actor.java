@@ -5,12 +5,16 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import javafx.scene.control.Alert;
 
+import java.awt.event.KeyEvent;
+
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 100;
     private int key = 0;
     protected int id;
     protected int damage;
+
+    private int countSkeleton = 0;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -32,6 +36,13 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
             key++;
+        }
+        if(nextCell.getType() == CellType.SKELETON){
+            nextCell.setType(CellType.FLOOR);
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+            countSkeleton --;
         }
     }
 

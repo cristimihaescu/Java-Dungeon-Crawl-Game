@@ -4,12 +4,12 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -43,8 +43,6 @@ public class Main extends Application {
         ui.add(new Label("Items: "), 0, 1);
         ui.add(healthLabel, 1, 0);
         ui.add(keyLabel, 1, 1);
-        Button button = new Button("Pick item");
-        ui.add(button, 1, 3);
 
         BorderPane borderPane = new BorderPane();
 
@@ -81,8 +79,8 @@ public class Main extends Application {
         }
         int[] listOfSkeletons = new int[]{1, 1, -1};
         Random random = new Random();
-        List<Actor> newEnemyList = List.copyOf(map.getEnemyList());
-        for (Actor enemy : newEnemyList) {
+        List<Skeleton> newEnemyList = List.copyOf(map.getEnemyList());
+        for (Skeleton enemy : newEnemyList) {
             if (enemy.getHealth() <= 0) {
                 map.getEnemyList().remove(enemy);
             } else {

@@ -11,10 +11,8 @@ public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
-
     private Player player;
-    //    private Skeleton skeleton;
-    private List<Actor> enemyList = new ArrayList<>();
+    private List<Skeleton> enemyList = new ArrayList<>();
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -51,7 +49,7 @@ public class GameMap {
         enemyList.add(skeleton);
     }
 
-    public List<Actor> getEnemyList() {
+    public List<Skeleton> getEnemyList() {
         return enemyList;
     }
 

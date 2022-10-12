@@ -35,7 +35,7 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             break;
                         case 's':
-                            cell.setType(CellType.FLOOR);
+                            cell.setType(CellType.SKELETON);
                             countSkeletons++;
                             map.addSkeleton(new Skeleton(cell, countSkeletons));
                             break;
