@@ -3,17 +3,22 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.Random;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -56,27 +61,35 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                map.getSkeleton().forEach((n) -> map.getSkeleton().move(0, -1));
                 map.getPlayer().move(0, -1);
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                map.getSkeleton().move(0, 1);
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                map.getSkeleton().move(-1, 0);
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1, 0);
-                map.getSkeleton().move(1, 0);
                 refresh();
                 break;
         }
+        int[] listOfSkeletons = new int[]{1, 1, -1};
+        Random random = new Random();
+        List<Actor> newEnemyList = List.copyOf(map.getEnemyList());
+        for (Actor enemy : newEnemyList) {
+            if (enemy.getHealth() <= 0) {
+                map.getEnemyList().remove(enemy);
+            } else {
+                enemy.move(listOfSkeletons[random.nextInt(3)], listOfSkeletons[random.nextInt(3)]);
+            }
+        }
+        refresh();
     }
+
 
     private void refresh() {
         context.setFill(Color.BLACK);
@@ -93,6 +106,7 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
         keyLabel.setText("" + map.getPlayer().getKey());
-
     }
+
+
 }

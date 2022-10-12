@@ -14,6 +14,7 @@ public class MapLoader {
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
+        int countSkeletons = 0;
 
         scanner.nextLine(); // empty line
 
@@ -35,7 +36,8 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            map.setSkeleton(new Skeleton(cell));
+                            countSkeletons++;
+                            map.addSkeleton(new Skeleton(cell, countSkeletons));
                             break;
                         case 'k':
                             cell.setType(CellType.KEY);
@@ -46,7 +48,7 @@ public class MapLoader {
                             map.setPlayer(new Player(cell));
                             break;
                         case 'd':
-                            cell.setType(CellType.DOOR);
+                            cell.setType(CellType.FLOOR);
                             new Door(cell);
                             break;
                         default:

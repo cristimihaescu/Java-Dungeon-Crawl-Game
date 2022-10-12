@@ -4,16 +4,13 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import javafx.scene.control.Alert;
-import javafx.scene.text.Text;
-
-import java.util.List;
-import java.util.Objects;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
     private int key = 0;
-    private List<Skeleton> skeletons;
+    protected int id;
+    protected int damage;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -21,28 +18,40 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
-        Alert a=new Alert(Alert.AlertType.NONE);
+        Alert a = new Alert(Alert.AlertType.NONE);
         Cell nextCell = cell.getNeighbor(dx, dy);
         if (nextCell.getType() != CellType.WALL && nextCell.getActor() == null) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
-        if(nextCell.getType()==CellType.KEY){
+        if (nextCell.getType() == CellType.KEY) {
             System.out.println("Bye!");
             nextCell.setType(CellType.FLOOR);
             cell.setActor(null);
             nextCell.setActor(this);
-            cell=nextCell;
+            cell = nextCell;
             key++;
         }
-//        if(nextCell.getType() == Cel)
     }
 
     public int getHealth() {
         return health;
     }
-    public int getKey(){
+
+    public int getDamage(){
+        return damage;
+    }
+
+    public void setHealth(int health){
+        this.health = health;
+    }
+
+    public void setDamage(int damage){
+        this.damage = damage;
+    }
+
+    public int getKey() {
         return key;
     }
 
