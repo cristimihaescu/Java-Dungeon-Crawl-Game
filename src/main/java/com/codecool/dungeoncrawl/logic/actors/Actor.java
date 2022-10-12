@@ -22,13 +22,20 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
-        Alert a = new Alert(Alert.AlertType.NONE);
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType() != CellType.WALL && nextCell.getActor() == null) {
+        if (nextCell.getType()!= CellType.WALL && nextCell.getActor()==null){
+
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
+//        Alert a = new Alert(Alert.AlertType.NONE);
+////        Cell nextCell = cell.getNeighbor(dx, dy);
+//        if (nextCell.getType() != CellType.WALL && nextCell.getActor() == null) {
+//            cell.setActor(null);
+//            nextCell.setActor(this);
+//            cell = nextCell;
+//        }
         if (nextCell.getType() == CellType.KEY) {
             System.out.println("Bye!");
             nextCell.setType(CellType.FLOOR);
@@ -37,13 +44,13 @@ public abstract class Actor implements Drawable {
             cell = nextCell;
             key++;
         }
-        if(nextCell.getType() == CellType.SKELETON){
-            nextCell.setType(CellType.FLOOR);
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-            countSkeleton --;
-        }
+//        if(nextCell.getType() == CellType.SKELETON){
+//            nextCell.setType(CellType.FLOOR);
+//            cell.setActor(null);
+//            nextCell.setActor(this);
+//            cell = nextCell;
+//            countSkeleton --;
+//        }
     }
 
     public int getHealth() {
@@ -66,8 +73,14 @@ public abstract class Actor implements Drawable {
         return key;
     }
 
+    public void addKey(){key++;}
+
     public Cell getCell() {
         return cell;
+    }
+
+    public void setCell(Cell cell){
+        this.cell = cell;
     }
 
     public int getX() {
