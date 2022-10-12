@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
@@ -98,6 +99,10 @@ public class Main extends Application {
                 int enemyX = enemy.getX();
                 int enemyY = enemy.getY();
                 map.getEnemyList().remove(enemy);
+                enemy.getCell().setType(CellType.FLOOR);
+                enemy.getCell().setActor(null);
+//                enemy.setCell().setActor(this);
+//                cell = nextCell;
 
 
             } else {
