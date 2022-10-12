@@ -42,7 +42,9 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(new Label("Items: "), 0, 1);
         ui.add(healthLabel, 1, 0);
-        ui.add(keyLabel, 0, 2);
+        ui.add(keyLabel, 1, 1);
+        Button button = new Button("Pick item");
+        ui.add(button, 1, 3);
 
         BorderPane borderPane = new BorderPane();
 

@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    private int health = 10;
+    private int health = 100;
     private int key = 0;
     protected int id;
     protected int damage;
