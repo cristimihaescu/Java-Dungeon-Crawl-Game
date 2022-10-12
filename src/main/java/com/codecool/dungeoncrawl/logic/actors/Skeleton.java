@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 public class Skeleton extends Actor {
     public Skeleton(Cell cell, int countSkeletons) {
         super(cell);
-        damage = 1;
+        damage = 5;
         id = countSkeletons;
     }
 

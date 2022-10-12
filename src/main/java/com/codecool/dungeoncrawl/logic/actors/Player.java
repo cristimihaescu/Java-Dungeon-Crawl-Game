@@ -14,8 +14,8 @@ public class Player extends Actor {
 //            nextCell.setType(CellType.FLOOR);
 //            getCell().setActor(null);
 //            nextCell.setActor(this);
-////            setCell(nextCell);
-////            addKey();
+//            setCell(nextCell);
+//            addKey();
 //        }
         if (nextCell.getType()!= CellType.WALL&&
                 (nextCell.getActor()==null||
@@ -38,7 +38,7 @@ public class Player extends Actor {
 //                    if (item instanceof ItemKey) {
 //                        nextLevel = true;
 //
-////                        break;
+//                        break;
 //                    }
 //                }
 //                String[] listOfInventoryString = inventoryString.split("\n");
@@ -46,7 +46,7 @@ public class Player extends Actor {
 //                    if (Objects.equals(item, "key")) {
 //                        nextLevel = true;
 //
-////                        break;
+//                       break;
 //                    }
 //                }
 //            }
