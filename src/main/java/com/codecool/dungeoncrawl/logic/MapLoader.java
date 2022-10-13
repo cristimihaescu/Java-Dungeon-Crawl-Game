@@ -57,8 +57,10 @@ public class MapLoader {
                             break;
                         case 'd':
                             cell.setType(CellType.FLOOR);
-//                            new Door(cell);
                             map.setDoor(new Door(cell));
+                            break;
+                        case 't':
+                            cell.setType(CellType.TREE);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
