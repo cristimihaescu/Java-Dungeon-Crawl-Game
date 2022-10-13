@@ -26,7 +26,7 @@ import static com.codecool.dungeoncrawl.Tiles.tileset;
 public class Main extends Application {
     int lvl=1;
     public Stage generalStage;
-
+    public GridPane ui;
     GameMap map = MapLoader.loadMap(lvl);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -150,8 +150,19 @@ public class Main extends Application {
 
     private Stage createStage() {
         map = MapLoader.loadMap(lvl);
+
+        GridPane ui = new GridPane();
+        ui.setPrefWidth(200);
+        ui.setPadding(new Insets(10));
+
+        ui.add(new Label("Health: "), 0, 0);
+        ui.add(new Label("Items: "), 0, 1);
+        ui.add(healthLabel, 1, 0);
+        ui.add(keyLabel, 1, 1);
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+
 
         Scene scene2 = new Scene(borderPane);
 
