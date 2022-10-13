@@ -6,6 +6,7 @@ public enum CellType {
     WALL("wall"),
     KEY("key"),
     DOOR("door"),
+    OPEN_DOOR("openDoor"),
     SKELETON("skeleton");
 
 

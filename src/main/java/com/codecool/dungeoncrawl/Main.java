@@ -5,9 +5,9 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -96,19 +96,28 @@ public class Main extends Application {
         List<Actor> newEnemyList = List.copyOf(map.getEnemyList());
         for (Actor enemy : newEnemyList) {
             if (enemy.getHealth() <= 0) {
-                int enemyX = enemy.getX();
-                int enemyY = enemy.getY();
+//                int enemyX = enemy.getX();
+//                int enemyY = enemy.getY();
                 map.getEnemyList().remove(enemy);
                 enemy.getCell().setType(CellType.FLOOR);
                 enemy.getCell().setActor(null);
-//                enemy.setCell().setActor(this);
-//                cell = nextCell;
-
-
             } else {
                 enemy.move(dxList[random.nextInt(3)], dxList[random.nextInt(3)]);
             }
         }
+
+        if (map.getPlayer().getKey() == 1 && map.getEnemyList().size() == 0) {
+            if ((map.getPlayer().getCell().getX() == map.getDoor().getCell().getX() + 1) &&
+                    (map.getPlayer().getCell().getY() == map.getDoor().getCell().getY())) {
+                map.getDoor().getCell().setType(CellType.OPEN_DOOR);
+                map.getDoor().getCell().setActor(null);
+                System.out.println("win");
+
+                Stage stage = (Stage) createStage();
+                stage.show();
+            }
+        }
+
         if (map.getPlayer().getHealth() <= 0) {
             System.exit(0);
         }
@@ -117,7 +126,6 @@ public class Main extends Application {
 
 
     private void refresh() {
-        //////////////////////////ASA ERA /////////////////////////////
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -132,54 +140,18 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
         keyLabel.setText("" + map.getPlayer().getKey());
-/////////////////////////////////////////////////////////////////
-//        actorStatus="";
-//        mapStatus="";
-//        for (Cell[] cell : map.getCells()) {
-//            for (Cell cell1 : cell) {
-//                if (cell1.getActor() instanceof Actor){
-//                    System.out.println(String.valueOf(cell1.getActor().getTileName()));
-//                    actorStatus += String.valueOf(cell1.getActor().getTileName());
-//                }
-//                else {
-//                    actorStatus+="null";
-//                }
-//                actorStatus += ",";
-//                mapStatus += cell1.getTileName();
-//                mapStatus += ",";
-//            }
-//        }
-//        System.out.println("////////////////////////////////////////");
-//
-//        if (player.getId()!=0 && ediCheck){
-//            int dbHp = dbManager.getDbHp(player.getId());
-//            map.getPlayer().setHealth(dbHp);
-//            ediCheck = false;
-//        }
-//        if (Player.nextLevel) {
-//            map = MapLoader.loadMap("/map2.txt");
-//            Player.nextLevel = false;
-//            level2 = true;
-//            scene.setOnKeyPressed(this::onKeyPressed);
-//        }
-//        context.setFill(Color.BLACK);
-//        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        for (int x = 0; x < map.getWidth(); x++) {
-//            for (int y = 0; y < map.getHeight(); y++) {
-//                Cell cell = map.getCell(x, y);
-//                if (cell.getActor() != null) {
-//                    Tiles.drawTile(context, cell.getActor(), x, y);
-//                } else if (cell.getItem() != null) {
-//                    Tiles.drawTile(context, cell.getItem(), x, y);
-//                } else {
-//                    Tiles.drawTile(context, cell, x, y);
-//                }
-//            }
-//        }
-//
-//        healthLabel.setText("" + map.getPlayer().getHealth());
-//        damageLabel.setText("" + map.getPlayer().getDamage());
     }
 
+    private Stage createStage() {
+        Stage stage = new Stage();
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        Scene scene = new Scene(borderPane);
+        stage.setScene(scene);
+        refresh();
+        scene.setOnKeyPressed(this::onKeyPressed);
+        stage.setTitle("Next lvl");
+        return stage;
+    }
 
 }
