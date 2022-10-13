@@ -7,7 +7,6 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,14 +16,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import com.codecool.dungeoncrawl.Win;
 
 import java.util.List;
 import java.util.Random;
 
-import static com.codecool.dungeoncrawl.Tiles.tileset;
 
 public class Main extends Application {
     int lvl=1;
+    public Win win;
     public Stage generalStage;
     public GridPane ui;
     GameMap map = MapLoader.loadMap(lvl);
@@ -97,6 +97,9 @@ public class Main extends Application {
             } else {
                 enemy.move(dxList[random.nextInt(3)], dxList[random.nextInt(3)]);
             }
+            if(map.getPlayer().getHealth() <= 85){
+                new Win();
+            }
         }
 
         if (map.getPlayer().getKey() == 1 && map.getEnemyList().size() == 0) {
@@ -104,10 +107,10 @@ public class Main extends Application {
                     (map.getPlayer().getCell().getY() == map.getDoor().getCell().getY())) {
                 map.getDoor().getCell().setType(CellType.OPEN_DOOR);
                 map.getDoor().getCell().setActor(null);
-                System.out.println("win");
                 lvl++;
                 Stage stage =  createStage();
                 stage.show();
+
             }
         }
 
@@ -131,19 +134,6 @@ public class Main extends Application {
                 }
             }
         }
-//        context.setFill(Color.BLACK);
-//        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        for (int x = 0; x < map.getWidth(); x++ ){
-//            for (int y = 0; y < map.getHeight(); y++){
-//                Cell cell = map.getCell(x, y);
-//                if (cell.getActor() != null && cell.getActor().equals("@")){
-//                    //player Tile 28, 0
-//                    context.drawImage(tileset, 952,0, 32,32,y * 32,x * 32, 32,32);
-//                } else{
-//                    context.drawImage(tileset, 0,0, 32,32,y * 32,x * 32, 32,32);
-//                }
-//            }
-//        }
         healthLabel.setText("" + map.getPlayer().getHealth());
         keyLabel.setText("" + map.getPlayer().getKey());
     }
@@ -154,7 +144,6 @@ public class Main extends Application {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
-
         ui.add(new Label("Health: "), 0, 0);
         ui.add(new Label("Items: "), 0, 1);
         ui.add(healthLabel, 1, 0);
@@ -163,7 +152,6 @@ public class Main extends Application {
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
 
-
         Scene scene2 = new Scene(borderPane);
 
         generalStage.setScene(scene2);
@@ -171,7 +159,5 @@ public class Main extends Application {
         scene2.setOnKeyPressed(this::onKeyPressed);
         generalStage.setTitle("Next lvl");
         return generalStage;
-
     }
-
 }
