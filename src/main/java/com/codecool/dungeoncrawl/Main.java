@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.Random;
 
+import static com.codecool.dungeoncrawl.Tiles.tileset;
+
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
@@ -78,26 +80,11 @@ public class Main extends Application {
                 refresh();
                 break;
         }
-        int[] listOfSkeletons = new int[]{1, 1, -1};
-        ///////////////////////////////////CUM ERA////////////////////////////////////
-//        Random random = new Random();
-////        List<Skeleton> newEnemyList = List.copyOf(map.getEnemyList());
-//        for (Skeleton enemy : map.getEnemyList()) {
-//            if (enemy.getHealth() <= 0) {
-//                map.getEnemyList().remove(enemy);
-//            } else {
-////                enemy.move(listOfSkeletons[random.nextInt(3)], listOfSkeletons[random.nextInt(3)]);
-//                enemy.move(enemy.getX()+ random.nextInt(2), enemy.getY()+ random.nextInt(2));
-//            }
-//        }
-        //////////////////////////////////////////////////////////////////////////////////////
         int[] dxList = new int[]{0, 1, -1};
         Random random = new Random();
         List<Actor> newEnemyList = List.copyOf(map.getEnemyList());
         for (Actor enemy : newEnemyList) {
             if (enemy.getHealth() <= 0) {
-//                int enemyX = enemy.getX();
-//                int enemyY = enemy.getY();
                 map.getEnemyList().remove(enemy);
                 enemy.getCell().setType(CellType.FLOOR);
                 enemy.getCell().setActor(null);
@@ -138,6 +125,19 @@ public class Main extends Application {
                 }
             }
         }
+//        context.setFill(Color.BLACK);
+//        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        for (int x = 0; x < map.getWidth(); x++ ){
+//            for (int y = 0; y < map.getHeight(); y++){
+//                Cell cell = map.getCell(x, y);
+//                if (cell.getActor() != null && cell.getActor().equals("@")){
+//                    //player Tile 28, 0
+//                    context.drawImage(tileset, 952,0, 32,32,y * 32,x * 32, 32,32);
+//                } else{
+//                    context.drawImage(tileset, 0,0, 32,32,y * 32,x * 32, 32,32);
+//                }
+//            }
+//        }
         healthLabel.setText("" + map.getPlayer().getHealth());
         keyLabel.setText("" + map.getPlayer().getKey());
     }

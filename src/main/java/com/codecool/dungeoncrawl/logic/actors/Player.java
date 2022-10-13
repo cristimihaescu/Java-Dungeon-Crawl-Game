@@ -6,7 +6,6 @@ import com.codecool.dungeoncrawl.logic.CellType;
 public class Player extends Actor {
 
     public void move(int dx, int dy) {
-        int hasSwordCounter = 0;
 
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if (nextCell.getType()!= CellType.WALL&&
