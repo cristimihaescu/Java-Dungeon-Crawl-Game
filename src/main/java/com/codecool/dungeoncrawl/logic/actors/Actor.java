@@ -1,16 +1,14 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
-import javafx.scene.control.Alert;
-
-import java.awt.event.KeyEvent;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 100;
-    private int key = 0;
+    private int key;
     protected int id;
     protected int damage;
 
@@ -23,7 +21,7 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType()!= CellType.WALL && nextCell.getActor()==null){
+        if (nextCell.getType() != CellType.WALL && nextCell.getActor() == null) {
 
             cell.setActor(null);
             nextCell.setActor(this);
@@ -37,7 +35,7 @@ public abstract class Actor implements Drawable {
 //            cell = nextCell;
 //        }
         if (nextCell.getType() == CellType.KEY) {
-            System.out.println("Bye!");
+//            System.out.println("Bye!");
             nextCell.setType(CellType.FLOOR);
             cell.setActor(null);
             nextCell.setActor(this);
@@ -57,15 +55,15 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
-    public int getDamage(){
+    public int getDamage() {
         return damage;
     }
 
-    public void setHealth(int health){
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public void setDamage(int damage){
+    public void setDamage(int damage) {
         this.damage = damage;
     }
 
@@ -73,13 +71,15 @@ public abstract class Actor implements Drawable {
         return key;
     }
 
-    public void addKey(){key++;}
+    public void addKey() {
+        key++;
+    }
 
     public Cell getCell() {
         return cell;
     }
 
-    public void setCell(Cell cell){
+    public void setCell(Cell cell) {
         this.cell = cell;
     }
 
