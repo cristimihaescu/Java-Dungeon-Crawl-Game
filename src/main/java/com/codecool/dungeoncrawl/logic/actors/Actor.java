@@ -20,6 +20,12 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
+
+        if (nextCell.getType() == CellType.TREE && nextCell.getActor() == null) {
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+        }
         if (nextCell.getType() != CellType.WALL && nextCell.getActor() == null) {
             cell.setActor(null);
             nextCell.setActor(this);
@@ -32,7 +38,9 @@ public abstract class Actor implements Drawable {
             cell = nextCell;
             key++;
         }
+
     }
+
 
     public int getHealth() {
         return health;

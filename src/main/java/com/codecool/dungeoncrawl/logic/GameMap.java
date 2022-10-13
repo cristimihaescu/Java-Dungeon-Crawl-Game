@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Door;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,15 @@ public class GameMap {
     private Player player;
     private Door door;
     private List<Skeleton> enemyList = new ArrayList<>();
+    private Tree tree;
+
+    public Tree getTree() {
+        return tree;
+    }
+
+    public void setTree(Tree tree) {
+        this.tree = tree;
+    }
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;

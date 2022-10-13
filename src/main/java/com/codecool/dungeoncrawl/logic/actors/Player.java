@@ -17,6 +17,11 @@ public class Player extends Actor {
                 nextCell.setType(CellType.FLOOR);
                 addKey();
             }
+            if (nextCell.getType() == CellType.TREE) {
+                getCell().setActor(null);
+                nextCell.setActor(this)
+                ;
+            }
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);
