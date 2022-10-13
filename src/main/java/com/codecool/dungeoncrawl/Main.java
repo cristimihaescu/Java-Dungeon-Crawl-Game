@@ -16,15 +16,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import com.codecool.dungeoncrawl.Win;
 
 import java.util.List;
 import java.util.Random;
 
 
 public class Main extends Application {
-    int lvl=1;
-    public Win win;
+    int lvl = 1;
     public Stage generalStage;
     public GridPane ui;
     GameMap map = MapLoader.loadMap(lvl);
@@ -61,10 +59,9 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
-        generalStage=primaryStage;
+        generalStage = primaryStage;
         primaryStage.show();
     }
-
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -97,9 +94,7 @@ public class Main extends Application {
             } else {
                 enemy.move(dxList[random.nextInt(3)], dxList[random.nextInt(3)]);
             }
-            if(map.getPlayer().getHealth() <= 85){
-                new Win();
-            }
+
         }
 
         if (map.getPlayer().getKey() == 1 && map.getEnemyList().size() == 0) {
@@ -108,14 +103,19 @@ public class Main extends Application {
                 map.getDoor().getCell().setType(CellType.OPEN_DOOR);
                 map.getDoor().getCell().setActor(null);
                 lvl++;
-                Stage stage =  createStage();
+                Stage stage = createStage();
                 stage.show();
 
+
             }
+
         }
 
-        if (map.getPlayer().getHealth() <= 0) {
-            System.exit(0);
+        if (map.getPlayer().getHealth() <= 50) {
+            lvl=5;
+            Stage stage2 = win();
+            stage2.show();
+//            System.exit(0);
         }
         refresh();
     }
@@ -158,6 +158,20 @@ public class Main extends Application {
         refresh();
         scene2.setOnKeyPressed(this::onKeyPressed);
         generalStage.setTitle("Next lvl");
+        return generalStage;
+    }
+
+    private Stage win() {
+        map = MapLoader.loadMap(lvl);
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+
+        Scene scene3 = new Scene(borderPane);
+
+        generalStage.setScene(scene3);
+        refresh();
+        scene3.setOnKeyPressed(this::onKeyPressed);
+        generalStage.setTitle("win lvl");
         return generalStage;
     }
 }

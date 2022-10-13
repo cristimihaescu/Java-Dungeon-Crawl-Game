@@ -17,6 +17,7 @@ public class GameMap {
     private List<Skeleton> enemyList = new ArrayList<>();
     private Tree tree;
 
+
     public Tree getTree() {
         return tree;
     }

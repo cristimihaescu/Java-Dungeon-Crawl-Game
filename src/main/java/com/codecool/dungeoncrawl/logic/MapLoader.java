@@ -10,9 +10,12 @@ public class MapLoader {
         InputStream is;
 
         if (lvl == 1) {
-             is = MapLoader.class.getResourceAsStream("/map.txt");
+            is = MapLoader.class.getResourceAsStream("/map.txt");
+        } else if (lvl == 2) {
+            is = MapLoader.class.getResourceAsStream("/map2.txt");
         } else {
-             is = MapLoader.class.getResourceAsStream("/map2.txt");
+            is = MapLoader.class.getResourceAsStream("/salut.txt");
+
         }
 
         assert is != null;
@@ -59,6 +62,7 @@ public class MapLoader {
                         case 't':
                             cell.setType(CellType.TREE);
                             map.setTree(new Tree(cell));
+
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

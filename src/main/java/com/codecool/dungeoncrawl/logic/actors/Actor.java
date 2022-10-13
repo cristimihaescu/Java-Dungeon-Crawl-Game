@@ -38,7 +38,6 @@ public abstract class Actor implements Drawable {
             cell = nextCell;
             key++;
         }
-
     }
 
 
