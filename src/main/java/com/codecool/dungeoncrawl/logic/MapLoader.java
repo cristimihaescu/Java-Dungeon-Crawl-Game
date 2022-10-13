@@ -9,8 +9,16 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    public static GameMap loadMap(int lvl) {
+        InputStream is;
+
+        if (lvl == 1) {
+             is = MapLoader.class.getResourceAsStream("/map.txt");
+        } else {
+             is = MapLoader.class.getResourceAsStream("/map2.txt");
+        }
+
+        assert is != null;
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();

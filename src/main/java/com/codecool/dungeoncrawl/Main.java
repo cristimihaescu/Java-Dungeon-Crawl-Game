@@ -24,7 +24,10 @@ import java.util.Random;
 import static com.codecool.dungeoncrawl.Tiles.tileset;
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
+    int lvl=1;
+    public Stage generalStage;
+
+    GameMap map = MapLoader.loadMap(lvl);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -58,8 +61,11 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
+        generalStage=primaryStage;
         primaryStage.show();
     }
+
+
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
@@ -99,8 +105,8 @@ public class Main extends Application {
                 map.getDoor().getCell().setType(CellType.OPEN_DOOR);
                 map.getDoor().getCell().setActor(null);
                 System.out.println("win");
-
-                Stage stage = (Stage) createStage();
+                lvl++;
+                Stage stage =  createStage();
                 stage.show();
             }
         }
@@ -143,15 +149,18 @@ public class Main extends Application {
     }
 
     private Stage createStage() {
-        Stage stage = new Stage();
+        map = MapLoader.loadMap(lvl);
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
-        Scene scene = new Scene(borderPane);
-        stage.setScene(scene);
+
+        Scene scene2 = new Scene(borderPane);
+
+        generalStage.setScene(scene2);
         refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
-        stage.setTitle("Next lvl");
-        return stage;
+        scene2.setOnKeyPressed(this::onKeyPressed);
+        generalStage.setTitle("Next lvl");
+        return generalStage;
+
     }
 
 }
