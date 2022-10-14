@@ -39,30 +39,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
-        ui.setPadding(new Insets(10));
-
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(new Label("Items: "), 0, 1);
-        ui.add(healthLabel, 1, 0);
-        ui.add(keyLabel, 1, 1);
-
-        BorderPane borderPane = new BorderPane();
-
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
-
-        Scene scene = new Scene(borderPane);
-        primaryStage.setScene(scene);
-        refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
-
+        stageCreator(primaryStage);
         primaryStage.setTitle("Dungeon Crawl");
         generalStage = primaryStage;
         primaryStage.show();
     }
-
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
@@ -115,7 +96,6 @@ public class Main extends Application {
             lvl=5;
             Stage stage2 = win();
             stage2.show();
-//            System.exit(0);
         }
         refresh();
     }
@@ -140,7 +120,12 @@ public class Main extends Application {
 
     private Stage createStage() {
         map = MapLoader.loadMap(lvl);
+        stageCreator(generalStage);
+        generalStage.setTitle("Next lvl");
+        return generalStage;
+    }
 
+    private void stageCreator(Stage generalStage) {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -151,23 +136,17 @@ public class Main extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
-
         Scene scene2 = new Scene(borderPane);
-
         generalStage.setScene(scene2);
         refresh();
         scene2.setOnKeyPressed(this::onKeyPressed);
-        generalStage.setTitle("Next lvl");
-        return generalStage;
     }
 
     private Stage win() {
         map = MapLoader.loadMap(lvl);
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
-
         Scene scene3 = new Scene(borderPane);
-
         generalStage.setScene(scene3);
         refresh();
         scene3.setOnKeyPressed(this::onKeyPressed);

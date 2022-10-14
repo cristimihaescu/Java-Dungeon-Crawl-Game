@@ -20,23 +20,19 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-
-        if (nextCell.getType() == CellType.TREE && nextCell.getActor() == null) {
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-        }
-        if (nextCell.getType() != CellType.WALL && nextCell.getActor() == null) {
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-        }
+        collision(nextCell, CellType.TREE);
+        collision(nextCell, CellType.WALL);
         if (nextCell.getType() == CellType.KEY) {
             nextCell.setType(CellType.FLOOR);
+            collision(nextCell, CellType.FLOOR);
+            key++;
+        }
+    }
+    private void collision(Cell nextCell, CellType cellType) {
+        if (nextCell.getType() != cellType && nextCell.getActor() == null) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-            key++;
         }
     }
 

@@ -9,13 +9,10 @@ public class MapLoader {
     public static GameMap loadMap(int lvl) {
         InputStream is;
 
-        if (lvl == 1) {
-            is = MapLoader.class.getResourceAsStream("/map.txt");
-        } else if (lvl == 2) {
-            is = MapLoader.class.getResourceAsStream("/map2.txt");
-        } else {
-            is = MapLoader.class.getResourceAsStream("/salut.txt");
-
+        switch (lvl) {
+            case 1 -> is = MapLoader.class.getResourceAsStream("/map.txt");
+            case 2 -> is = MapLoader.class.getResourceAsStream("/map2.txt");
+            default -> is = MapLoader.class.getResourceAsStream("/salut.txt");
         }
 
         assert is != null;
@@ -24,7 +21,7 @@ public class MapLoader {
         int height = scanner.nextInt();
         int countSkeletons = 0;
 
-        scanner.nextLine(); // empty line
+        scanner.nextLine();
 
         GameMap map = new GameMap(width, height, CellType.EMPTY);
         for (int y = 0; y < height; y++) {
@@ -33,44 +30,35 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
-                        case ' ':
-                            cell.setType(CellType.EMPTY);
-                            break;
-                        case '#':
-                            cell.setType(CellType.WALL);
-                            break;
-                        case '.':
-                            cell.setType(CellType.FLOOR);
-                            break;
-                        case 's':
+                        case ' ' -> cell.setType(CellType.EMPTY);
+                        case '#' -> cell.setType(CellType.WALL);
+                        case '.' -> cell.setType(CellType.FLOOR);
+                        case 's' -> {
                             cell.setType(CellType.FLOOR);
                             countSkeletons++;
                             map.addSkeleton(new Skeleton(cell, countSkeletons));
-                            break;
-                        case 'k':
+                        }
+                        case 'k' -> {
                             cell.setType(CellType.KEY);
                             new Key(cell);
-                            break;
-                        case '@':
+                        }
+                        case '@' -> {
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
-                            break;
-                        case 'd':
+                        }
+                        case 'd' -> {
                             cell.setType(CellType.FLOOR);
                             map.setDoor(new Door(cell));
-                            break;
-                        case 't':
+                        }
+                        case 't' -> {
                             cell.setType(CellType.TREE);
                             map.setTree(new Tree(cell));
-
-                            break;
-                        default:
-                            throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
+                        }
+                        default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
                 }
             }
         }
         return map;
     }
-
 }
