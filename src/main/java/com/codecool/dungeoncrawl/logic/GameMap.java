@@ -17,6 +17,11 @@ public class GameMap {
     private List<Skeleton> enemyList = new ArrayList<>();
     private Tree tree;
 
+
+    public Tree getTree() {
+        return tree;
+    }
+
     public void setTree(Tree tree) {
         this.tree = tree;
     }
@@ -24,10 +29,6 @@ public class GameMap {
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
         this.height = height;
-        constructCells(width, height, defaultCellType);
-    }
-
-    private void constructCells(int width, int height, CellType defaultCellType) {
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -55,6 +56,7 @@ public class GameMap {
     public Player getPlayer() {
         return player;
     }
+
 
     public void addSkeleton(Skeleton skeleton) {
         enemyList.add(skeleton);

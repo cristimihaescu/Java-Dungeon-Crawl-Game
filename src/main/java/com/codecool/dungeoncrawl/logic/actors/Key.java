@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 public class Key extends Actor {
     public Key(Cell cell) {
         super(cell);
-        super.damage = 0;
+        damage = 0;
     }
 
     @Override

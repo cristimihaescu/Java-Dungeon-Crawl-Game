@@ -8,6 +8,8 @@ public class Skeleton extends Actor {
         damage = 5;
         id = countSkeletons;
     }
+
+
     @Override
     public String getTileName() {
         return "skeleton";
