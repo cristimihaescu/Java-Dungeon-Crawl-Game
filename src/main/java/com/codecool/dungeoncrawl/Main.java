@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Random;
 
@@ -39,6 +42,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -61,27 +65,29 @@ public class Main extends Application {
         primaryStage.setTitle("Dungeon Crawl");
         generalStage = primaryStage;
         primaryStage.show();
+        map.getPlayer().getName();
     }
+
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case UP:
+            case UP -> {
                 map.getPlayer().move(0, -1);
                 refresh();
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 map.getPlayer().move(0, 1);
                 refresh();
-                break;
-            case LEFT:
+            }
+            case LEFT -> {
                 map.getPlayer().move(-1, 0);
                 refresh();
-                break;
-            case RIGHT:
+            }
+            case RIGHT -> {
                 map.getPlayer().move(1, 0);
                 refresh();
-                break;
+            }
         }
         int[] dxList = new int[]{0, 1, -1};
         Random random = new Random();
@@ -105,14 +111,12 @@ public class Main extends Application {
                 lvl++;
                 Stage stage = createStage();
                 stage.show();
-
-
             }
 
         }
 
         if (map.getPlayer().getHealth() <= 50) {
-            lvl=5;
+            lvl = 5;
             Stage stage2 = win();
             stage2.show();
 //            System.exit(0);

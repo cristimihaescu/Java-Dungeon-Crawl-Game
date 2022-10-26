@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 
+import javax.swing.*;
+
 public class Player extends Actor {
 
     public void move(int dx, int dy) {
@@ -40,5 +42,17 @@ public class Player extends Actor {
 
     public String getTileName() {
         return "player";
+    }
+
+
+    public String getName() {
+        JLabel player1Lbl = new JLabel("Player 1");
+        String playerName = JOptionPane.showInputDialog("Choose your Nickname");
+        player1Lbl.setText(playerName);
+//            player1Lbl.setEnabled(false);
+        if (playerName == null) {
+            System.exit(0);
+        }
+        return playerName;
     }
 }
