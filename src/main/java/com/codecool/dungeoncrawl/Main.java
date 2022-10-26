@@ -1,17 +1,19 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -19,12 +21,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Random;
 
 
 public class Main extends Application {
+    GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
     int lvl = 1;
     public Stage generalStage;
     public GridPane ui;
@@ -34,6 +36,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Button saveGame = new Button("Save Game");
     Label keyLabel = new Label();
 
     public static void main(String[] args) {
@@ -46,11 +49,15 @@ public class Main extends Application {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
+        ui.add(saveGame, 2, 2);
+        buttonAction();
 
+        saveGame.setFocusTraversable(false);
         ui.add(new Label("Health: "), 0, 0);
         ui.add(new Label("Items: "), 0, 1);
         ui.add(healthLabel, 1, 0);
         ui.add(keyLabel, 1, 1);
+
 
         BorderPane borderPane = new BorderPane();
 
@@ -64,11 +71,22 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         generalStage = primaryStage;
+        gameDatabaseManager.setup();
         primaryStage.show();
-        map.getPlayer().getName();
     }
 
 
+    public boolean buttonAction() {
+        saveGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                gameDatabaseManager.savePlayer(map.getPlayer());
+                gameDatabaseManager.s
+                System.exit(0);
+            }
+        });
+        return false;
+    }
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {

@@ -15,15 +15,6 @@ import java.sql.SQLException;
 public class App {
 
     public static void main(String[] args) throws SQLException {
-//        GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
-//        gameDatabaseManager.setup();
-//        GameMap gameMap=new GameMap(2,2,CellType.FLOOR);
-//        Cell cell=new Cell(gameMap,2,2,CellType.TREE);
-//        Player player=new Player(cell);
-////        PlayerDao playerDao = null;
-////        PlayerModel playerModel=new PlayerModel("s",2,2);
-////        playerDao.add(playerModel);
-//        gameDatabaseManager.savePlayer(player);
         Main.main(args);
     }
 }
