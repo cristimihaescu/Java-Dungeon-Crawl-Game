@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.actors.Door;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
@@ -16,7 +17,27 @@ public class GameMap {
     private Door door;
     private List<Skeleton> enemyList = new ArrayList<>();
     private Tree tree;
+    private int mapLvl;
 
+
+    public GameMap(int width, int height, Cell[][] cells, Player player, Door door, List<Skeleton> enemyList, Tree tree, GameMap map) {
+        this.width = width;
+        this.height = height;
+        this.cells = cells;
+        this.player = player;
+        this.door = door;
+        this.enemyList = enemyList;
+        this.tree = tree;
+        this.mapLvl = map.getMapLvl(); ;
+    }
+
+    public int getMapLvl() {
+        return mapLvl;
+    }
+
+    public void setMapLvl(int mapLvl) {
+        this.mapLvl = mapLvl;
+    }
 
     public Tree getTree() {
         return tree;

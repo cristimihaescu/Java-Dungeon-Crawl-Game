@@ -6,6 +6,20 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
+    int lvl;
+
+    public MapLoader(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
     public static GameMap loadMap(int lvl) {
         InputStream is;
         if (lvl == 1) {
@@ -17,8 +31,10 @@ public class MapLoader {
 
         }
 
+
         assert is != null;
         Scanner scanner = new Scanner(is);
+
         int width = scanner.nextInt();
         int height = scanner.nextInt();
         int countSkeletons = 0;

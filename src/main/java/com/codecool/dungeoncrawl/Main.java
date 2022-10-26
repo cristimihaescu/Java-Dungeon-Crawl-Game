@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.model.GameState;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,7 +28,9 @@ import java.util.Random;
 
 public class Main extends Application {
     GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
+    GameState gameState;
     int lvl = 1;
+
     public Stage generalStage;
     public GridPane ui;
     GameMap map = MapLoader.loadMap(lvl);
@@ -73,6 +76,7 @@ public class Main extends Application {
         generalStage = primaryStage;
         gameDatabaseManager.setup();
         primaryStage.show();
+        map.setMapLvl(lvl);
     }
 
 
@@ -81,7 +85,8 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 gameDatabaseManager.savePlayer(map.getPlayer());
-                gameDatabaseManager.s
+                gameDatabaseManager.saveGameState(gameState);
+//                gameDatabaseManager.s
                 System.exit(0);
             }
         });
@@ -158,6 +163,7 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
         keyLabel.setText("" + map.getPlayer().getKey());
+        map.setMapLvl(lvl);
     }
 
     private Stage createStage() {
@@ -195,5 +201,9 @@ public class Main extends Application {
         scene3.setOnKeyPressed(this::onKeyPressed);
         generalStage.setTitle("win lvl");
         return generalStage;
+    }
+
+    public int getLvl() {
+        return lvl;
     }
 }

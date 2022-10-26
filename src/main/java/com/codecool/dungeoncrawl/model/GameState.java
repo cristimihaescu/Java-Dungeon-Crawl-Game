@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.GameMap;
+
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
