@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class GameDatabaseManager {
-    private Timestamp savedAt;
+    private String savedAt;
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
 
@@ -20,6 +20,7 @@ public class GameDatabaseManager {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao= new GameStateDaoJdbc(dataSource);
+        savedAt=new String(String.valueOf(System.currentTimeMillis()));
 
 
     }

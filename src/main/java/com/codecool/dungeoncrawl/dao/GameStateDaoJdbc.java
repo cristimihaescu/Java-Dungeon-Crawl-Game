@@ -69,7 +69,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     public List<GameState> getAll() {
         List<GameState> result = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
-            String query = "SELECT player_name, x, y, hp, current_map, saved_as " +
+            String query = "SELECT player_name, x, y, hp, current_map, saved_at " +
                     "FROM game_state JOIN player ON player_id = player.id";
             ResultSet rs = conn.createStatement().executeQuery(query);
             while (rs.next()) {
@@ -90,4 +90,4 @@ public class GameStateDaoJdbc implements GameStateDao {
         return result;
     }
 }
-}
+

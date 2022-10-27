@@ -6,12 +6,12 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,12 +20,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class Main extends Application {
     int lvl = 1;
     PlayerModel player;
     public Stage generalStage;
-    public GridPane ui;
+    public GridPane ui=new GridPane();
     public String savedAt;
     GameMap map = MapLoader.loadMap(lvl);
     GameState gameState = new GameState(Integer.toString(map.getMapLvl()), savedAt, player);
@@ -45,6 +45,7 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Button saveGame = new Button("Save Game");
+    Button loadGame = new Button("Load Game");
     Label keyLabel = new Label();
 
     public static void main(String[] args) {
@@ -54,13 +55,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        GridPane ui = new GridPane();
+//        GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
         ui.add(saveGame, 2, 2);
-        ui.add(new Button("Load Game"),2,4);
+        ui.add(loadGame, 2, 4);
         buttonAction();
+        loadGame.setFocusTraversable(false);
 
+        setLoadGame();
         saveGame.setFocusTraversable(false);
         ui.add(new Label("Health: "), 0, 0);
         ui.add(new Label("Items: "), 0, 1);
@@ -97,6 +100,35 @@ public class Main extends Application {
             }
         });
         return false;
+    }
+
+    public void setLoadGame() {
+
+        loadGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                List<GameState> dataFrom = gameDatabaseManager.getAll();
+                for(int i=20; i<dataFrom.size()+20; i++) {
+                    String column1 = dataFrom.get(i - 20).getPlayer().getPlayerName();
+                    Button playerNameButton=new Button(column1);
+                    ui.add(playerNameButton, 2, i);
+                    playerNameButton.setFocusTraversable(false);
+                    playerNameButton.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+//                            gameDatabaseManager.updateGameState(Integer.toString(lvl),,player);
+                        }
+                    });
+
+//                    savedGameList.add(column1, 1, i);
+                    System.out.println("sa;it");
+                }
+                }
+        });
+    }
+
+    public void setPlayerOnPreviousSave(){
+
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
