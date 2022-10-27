@@ -15,6 +15,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     public GameStateDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     @Override
     public void add(GameState state) {
         try (Connection conn = dataSource.getConnection()) {
@@ -66,6 +67,27 @@ public class GameStateDaoJdbc implements GameStateDao {
 
     @Override
     public List<GameState> getAll() {
-        return null;
+        List<GameState> result = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection()) {
+            String query = "SELECT player_name, x, y, hp, current_map, saved_as " +
+                    "FROM game_state JOIN player ON player_id = player.id";
+            ResultSet rs = conn.createStatement().executeQuery(query);
+            while (rs.next()) {
+                PlayerModel playerToAdd = new PlayerModel(
+                        rs.getString(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4));
+                GameState gameStateToAdd = new GameState(
+                        rs.getString(5),
+                        rs.getString(6),
+                        playerToAdd);
+                result.add(gameStateToAdd);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
     }
+}
 }

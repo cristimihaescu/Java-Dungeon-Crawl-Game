@@ -10,10 +10,11 @@ public class PlayerModel extends BaseModel {
     private int x;
     private int y;
 
-    public PlayerModel(String playerName, int x, int y) {
+    public PlayerModel(String playerName, int x, int y, int hp) {
         this.playerName = playerName;
         this.x = x;
         this.y = y;
+        this.hp = hp;
     }
 
     public PlayerModel(Player player) {
