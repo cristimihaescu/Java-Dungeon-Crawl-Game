@@ -183,6 +183,8 @@ public class Main extends Application {
         ui.add(new Label("Items: "), 0, 1);
         ui.add(healthLabel, 1, 0);
         ui.add(keyLabel, 1, 1);
+        ui.add(saveGame, 2, 2);
+        buttonAction();
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
@@ -206,6 +208,8 @@ public class Main extends Application {
         generalStage.setScene(scene3);
         refresh();
         scene3.setOnKeyPressed(this::onKeyPressed);
+
+
         generalStage.setTitle("win lvl");
         return generalStage;
     }
