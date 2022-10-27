@@ -89,7 +89,7 @@ public class Main extends Application {
         saveGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                gameDatabaseManager.savePlayer(map.getPlayer());
+//                gameDatabaseManager.savePlayer(map.getPlayer());
                 gameDatabaseManager.saveGameState(gameState.getCurrentMap(), savedAt, gameDatabaseManager.savePlayer(map.getPlayer()));
 //                gameDatabaseManager.s
                 System.exit(0);
