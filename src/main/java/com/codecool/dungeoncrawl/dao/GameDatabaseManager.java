@@ -6,9 +6,12 @@ import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
+import java.sql.Date;
 import java.sql.SQLException;
 
 public class GameDatabaseManager {
+    private Date date;
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
 
@@ -16,7 +19,7 @@ public class GameDatabaseManager {
     public void setup() throws SQLException {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
-
+        gameStateDao= new GameStateDaoJdbc(dataSource);
 
 
     }
@@ -27,7 +30,7 @@ public class GameDatabaseManager {
     }
 
     public void saveGameState(GameState gameState) {
-        GameState model= new GameState(gameState.getCurrentMap(),gameState.getSavedAt(),gameState.getPlayer());
+        GameState model = new GameState(gameState.getCurrentMap(), date, gameState.getPlayer());
         gameStateDao.add(model);
     }
 

@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.actors.Door;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
@@ -35,8 +34,9 @@ public class GameMap {
         return mapLvl;
     }
 
-    public void setMapLvl(int mapLvl) {
-        this.mapLvl = mapLvl;
+    public int setMapLvl(int mapLvl) {
+
+        return  this.mapLvl = mapLvl;
     }
 
     public Tree getTree() {

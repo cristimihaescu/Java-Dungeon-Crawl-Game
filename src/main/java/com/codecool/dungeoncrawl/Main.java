@@ -6,7 +6,9 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,18 +24,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Random;
 
 
 public class Main extends Application {
     GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
-    GameState gameState;
     int lvl = 1;
-
+PlayerModel player;
     public Stage generalStage;
     public GridPane ui;
+    public Date date;
     GameMap map = MapLoader.loadMap(lvl);
+    GameState gameState=new GameState(Integer.toString(map.getMapLvl()),date,player);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -149,6 +153,7 @@ public class Main extends Application {
 
 
     private void refresh() {
+
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -164,6 +169,7 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
         keyLabel.setText("" + map.getPlayer().getKey());
         map.setMapLvl(lvl);
+        gameState.setCurrentMap(Integer.toString(map.setMapLvl(lvl)));
     }
 
     private Stage createStage() {
