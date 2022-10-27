@@ -26,7 +26,10 @@ public class MapLoader {
             is = MapLoader.class.getResourceAsStream("/map.txt");
         } else if (lvl == 2) {
             is = MapLoader.class.getResourceAsStream("/map2.txt");
-        } else {
+        }else if(lvl == 3){
+            is = MapLoader.class.getResourceAsStream("/map3.txt");
+        }
+        else {
             is = MapLoader.class.getResourceAsStream("/salut.txt");
 
         }
