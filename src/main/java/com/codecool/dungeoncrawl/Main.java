@@ -58,6 +58,7 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
         ui.add(saveGame, 2, 2);
+        ui.add(new Button("Load Game"),2,4);
         buttonAction();
 
         saveGame.setFocusTraversable(false);
