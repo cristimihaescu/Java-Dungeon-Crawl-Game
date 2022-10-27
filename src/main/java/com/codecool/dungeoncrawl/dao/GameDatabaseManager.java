@@ -6,12 +6,11 @@ import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class GameDatabaseManager {
-    private Date date;
+    private Timestamp savedAt;
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
 
@@ -24,13 +23,14 @@ public class GameDatabaseManager {
 
     }
 
-    public void savePlayer(Player player) {
+    public PlayerModel savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);
         playerDao.add(model);
+        return model;
     }
 
-    public void saveGameState(GameState gameState) {
-        GameState model = new GameState(gameState.getCurrentMap(), date, gameState.getPlayer());
+    public void saveGameState(String currentMap, String savedAt, PlayerModel player) {
+        GameState model = new GameState(currentMap, savedAt, player);
         gameStateDao.add(model);
     }
 

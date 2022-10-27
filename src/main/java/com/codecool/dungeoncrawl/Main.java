@@ -25,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Random;
 
@@ -32,12 +33,12 @@ import java.util.Random;
 public class Main extends Application {
     GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
     int lvl = 1;
-PlayerModel player;
+    PlayerModel player;
     public Stage generalStage;
     public GridPane ui;
-    public Date date;
+    public String savedAt;
     GameMap map = MapLoader.loadMap(lvl);
-    GameState gameState=new GameState(Integer.toString(map.getMapLvl()),date,player);
+    GameState gameState = new GameState(Integer.toString(map.getMapLvl()), savedAt, player);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -89,7 +90,7 @@ PlayerModel player;
             @Override
             public void handle(ActionEvent actionEvent) {
                 gameDatabaseManager.savePlayer(map.getPlayer());
-                gameDatabaseManager.saveGameState(gameState);
+                gameDatabaseManager.saveGameState(gameState.getCurrentMap(), savedAt, gameDatabaseManager.savePlayer(map.getPlayer()));
 //                gameDatabaseManager.s
                 System.exit(0);
             }
