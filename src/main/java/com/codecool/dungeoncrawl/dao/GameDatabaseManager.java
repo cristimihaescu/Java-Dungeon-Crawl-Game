@@ -8,6 +8,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class GameDatabaseManager {
     private Timestamp savedAt;
@@ -32,6 +33,15 @@ public class GameDatabaseManager {
     public void saveGameState(String currentMap, String savedAt, PlayerModel player) {
         GameState model = new GameState(currentMap, savedAt, player);
         gameStateDao.add(model);
+    }
+
+    public List<GameState>getAll(){
+        return gameStateDao.getAll();
+    }
+
+    public void updateGameState(String currentMap, String savedAt, PlayerModel player){
+        GameState model = new GameState(currentMap, savedAt, player);
+        gameStateDao.update(model);
     }
 
     private DataSource connect() throws SQLException {
