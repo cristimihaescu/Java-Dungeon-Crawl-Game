@@ -25,12 +25,12 @@ public class Tiles {
     static {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("wall", new Tile(4, 8));
-        tileMap.put("floor", new Tile(2, 0));
-        tileMap.put("player", new Tile(27, 0));
-        tileMap.put("skeleton", new Tile(29, 6));
+        tileMap.put("floor", new Tile(3, 0));
+        tileMap.put("player", new Tile(28, 0));
+        tileMap.put("skeleton", new Tile(27, 6));
         tileMap.put("key",new Tile(16,23));
         tileMap.put("door", new Tile(4,11));
-        tileMap.put("tree", new Tile(2,1));
+        tileMap.put("tree", new Tile(4,1));
         tileMap.put("openDoor",new Tile(2,9));
     }
 

@@ -11,7 +11,6 @@ import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,10 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -35,7 +32,7 @@ public class Main extends Application {
     int lvl = 1;
     PlayerModel player;
     public Stage generalStage;
-    public GridPane ui=new GridPane();
+    public GridPane ui = new GridPane();
     public String savedAt;
     GameMap map = MapLoader.loadMap(lvl);
     GameState gameState = new GameState(Integer.toString(map.getMapLvl()), savedAt, player);
@@ -93,9 +90,7 @@ public class Main extends Application {
         saveGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-//                gameDatabaseManager.savePlayer(map.getPlayer());
                 gameDatabaseManager.saveGameState(gameState.getCurrentMap(), savedAt, gameDatabaseManager.savePlayer(map.getPlayer()));
-//                gameDatabaseManager.s
                 System.exit(0);
             }
         });
@@ -108,9 +103,9 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 List<GameState> dataFrom = gameDatabaseManager.getAll();
-                for(int i=20; i<dataFrom.size()+20; i++) {
+                for (int i = 20; i < dataFrom.size() + 20; i++) {
                     String column1 = dataFrom.get(i - 20).getPlayer().getPlayerName();
-                    Button playerNameButton=new Button(column1);
+                    Button playerNameButton = new Button(column1);
                     ui.add(playerNameButton, 2, i);
                     playerNameButton.setFocusTraversable(false);
                     playerNameButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -120,16 +115,12 @@ public class Main extends Application {
                         }
                     });
 
-//                    savedGameList.add(column1, 1, i);
-                    System.out.println("sa;it");
+                    System.out.println("salut");
                 }
-                }
+            }
         });
     }
 
-    public void setPlayerOnPreviousSave(){
-
-    }
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
@@ -173,16 +164,29 @@ public class Main extends Application {
                 Stage stage = createStage();
                 stage.show();
             }
+        }
+        if (map.getPlayer().getKey() == 1 && map.getEnemyList().size() == 0) {
+            if ((map.getPlayer().getCell().getX() == map.getDoor().getCell().getX() ) &&
+                    (map.getPlayer().getCell().getY() == map.getDoor().getCell().getY() - 1)) {
+                map.getDoor().getCell().setType(CellType.OPEN_DOOR);
+                map.getDoor().getCell().setActor(null);
+                lvl++;
+                Stage stage = createStageTwo();
+                stage.show();
+            }
 
         }
 
-        if (map.getPlayer().getHealth() <= 50) {
+
+        if (map.getPlayer().getHealth() <= 44 &&map.getEnemyList().size()==0) {
             lvl = 5;
             Stage stage2 = win();
             stage2.show();
 //            System.exit(0);
         }
+
         refresh();
+
     }
 
 
@@ -217,7 +221,9 @@ public class Main extends Application {
         ui.add(healthLabel, 1, 0);
         ui.add(keyLabel, 1, 1);
         ui.add(saveGame, 2, 2);
+        ui.add(loadGame, 2, 4);
         buttonAction();
+        setLoadGame();
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
@@ -228,6 +234,33 @@ public class Main extends Application {
         refresh();
         scene2.setOnKeyPressed(this::onKeyPressed);
         generalStage.setTitle("Next lvl");
+        return generalStage;
+    }
+
+    private Stage createStageTwo() {
+        map = MapLoader.loadMap(lvl);
+
+        GridPane ui = new GridPane();
+        ui.setPrefWidth(200);
+        ui.setPadding(new Insets(10));
+        ui.add(new Label("Health: "), 0, 0);
+        ui.add(new Label("Items: "), 0, 1);
+        ui.add(healthLabel, 1, 0);
+        ui.add(keyLabel, 1, 1);
+        ui.add(saveGame, 2, 2);
+        ui.add(loadGame, 2, 4);
+        buttonAction();
+        setLoadGame();
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+
+        Scene scene2 = new Scene(borderPane);
+
+        generalStage.setScene(scene2);
+        refresh();
+        scene2.setOnKeyPressed(this::onKeyPressed);
+        generalStage.setTitle("Next lvl2");
         return generalStage;
     }
 
